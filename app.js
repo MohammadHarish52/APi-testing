@@ -5,6 +5,8 @@ const app =  express();
 
 app.get("/",(req,res)=>{
 
+    // we can only have one res.send
+
     const url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=334579555c16d8f383591da138e15101&units=metric";
 
     // making http get request to the browser to fetch data from an api endpoint
@@ -24,14 +26,27 @@ app.get("/",(req,res)=>{
                 bfff:"ridhhi"
             }
 
-            console.log(WeatherData)
+            //gettting individual data from an api
+
+            const temp  = WeatherData.main.temp;
+            const feels = WeatherData.main.feels_like;
+            const dsp = WeatherData.weather[0].description;
+            const weatherimage = WeatherData.weather[0].icon;
+            const imageURL = `http://openweathermap.org/img/${weatherimage}@2x.png`
+
+            console.log(dsp , feels);
+           
+            res.write("<h1>Temperature in london is " + temp  + "C</h1>");
+            res.write("<p>The weather is currently " + dsp + "</p>");
+            res.write("<img src = " + imageURL + ">");
+            res.send();
 
        //it will convert the object into a string
 
             console.log(JSON.stringify(object));
         })
     })
-    res.send("<h1>Hello World</h1>");
+   
 })
 
 app.listen(3000,()=>{
