@@ -31,19 +31,22 @@ app.get("/",(req,res)=>{
             const temp  = WeatherData.main.temp;
             const feels = WeatherData.main.feels_like;
             const dsp = WeatherData.weather[0].description;
-            const weatherimage = WeatherData.weather[0].icon;
-            const imageURL = `http://openweathermap.org/img/${weatherimage}@2x.png`
+            const icon = WeatherData.weather[0].icon;
+            const imageURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
 
             console.log(dsp , feels);
            
             res.write("<h1>Temperature in london is " + temp  + "C</h1>");
             res.write("<p>The weather is currently " + dsp + "</p>");
             res.write("<img src = " + imageURL + ">");
+
             res.send();
 
        //it will convert the object into a string
 
             console.log(JSON.stringify(object));
+            
+            console.log(weatherimage)
         })
     })
    
